@@ -1,0 +1,10 @@
+#flake 8 configuration
+[flake8]
+exclude =
+    migrations,
+    __pycahce__,
+    manage.py,
+    settings.py
+
+# flake8 install command in docker
+#docker-compose run --rm app sh -c "flake8"
