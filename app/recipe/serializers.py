@@ -25,7 +25,7 @@ class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tag
-        fields= ['id', 'name']
+        fields = ['id', 'name']
         read_only_fields = ['id']
 
 
@@ -83,13 +83,14 @@ class RecipeSerializer(serializers.ModelSerializer):
         if ingredients is not None:
             instance.ingredients.clear()
             self._get_or_create_ingredients(ingredients, instance)
-            
+
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
 
         instance.save()
 
         return instance
+
 
 class RecipeDetailSerializer(RecipeSerializer):
     """Serializer for recipe detail view."""

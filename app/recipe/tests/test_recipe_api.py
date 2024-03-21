@@ -30,6 +30,7 @@ def detail_url(recipe_id):
 
     return reverse('recipe:recipe-detail', args=[recipe_id])
 
+
 def create_recipe(user, **params):
     """Create and return a sample recipe."""
     defaults = {
@@ -44,6 +45,7 @@ def create_recipe(user, **params):
     recipe = Recipe.objects.create(user=user, **defaults)
 
     return recipe
+
 
 def create_user(**params):
     """Create and return a new user."""
@@ -168,7 +170,7 @@ class PrivateRecipeAPITests(TestCase):
         recipe.refresh_from_db()
         for k, v in payload.items():
             self.assertEqual(getattr(recipe, k), v)
-        self.assertEqual(recipe.user, self.user )
+        self.assertEqual(recipe.user, self.user)
 
     def test_update_user_returns_error(self):
         """Test changing the recipe user results in error"""
@@ -176,7 +178,7 @@ class PrivateRecipeAPITests(TestCase):
         recipe = create_recipe(user=self.user)
 
         payload = {'user': new_user.id}
-        url = detail_url =(recipe.id)
+        url = detail_url(recipe.id)
         self.client.patch(url, payload)
 
         recipe.refresh_from_db()
@@ -197,7 +199,7 @@ class PrivateRecipeAPITests(TestCase):
         new_user = create_user(email='user2@example.com', password='test123')
         recipe = create_recipe(user=new_user)
 
-        url=detail_url(recipe.id)
+        url = detail_url(recipe.id)
         res = self.client.delete(url)
 
         self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
@@ -227,7 +229,7 @@ class PrivateRecipeAPITests(TestCase):
 
     def test_create_recipe_with_existing_tags(self):
         """Test creating a recipe with existing tag"""
-        tag_indian = Tag.objects.create(user=self.user, name= 'Indian')
+        tag_indian = Tag.objects.create(user=self.user, name='Indian')
         payload = {
             'title': 'Pongal',
             'time_minutes': 60,
